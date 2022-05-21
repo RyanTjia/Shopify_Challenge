@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome Page</title>
+</head>
+<body>
+  <div>
+    <form action = "{{url_for('index')}}">
+      <button type = "submit">Back</button>
+    </form>
+    <div>
+      <form action = "{{url_for('add_warehouse')}}" method = "post">
+        <input type = "text" name = "address" placeholder = "Address" required = "True">
+        <input type = "text" name = "state" placeholder = "State" minlength = "2" maxlength = "2" required = "True">
+        <input type = "text" name = "zipcode" placeholder = "Zipcode" minlength = "5" maxlength = "5" required = "True">
+        <button type = "submit">Add Warehouse</button>
+      </form>
+    </div>
+  </div>
+
+	<ul>
+  	{% for warehouse in warehouses %}
+    <a href = "{{url_for('edit_warehouse', warehouse_id = warehouse.id)}}">
+  	  <li> Warehouse #{{warehouse.id}} - {{warehouse.address}}, {{warehouse.state}} {{warehouse.zipcode}} </li>
+    </a>
+    <br>
+  	{% endfor %}
+	</ul>
+</body>

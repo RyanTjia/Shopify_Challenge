@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome Page</title>
+</head>
+<body>
+  <div>
+    <form action = "{{url_for('list_item')}}">
+      <button type = "submit">Back</button>
+    </form>
+    <div>
+      <form action = "{{url_for('edit_item', item_id = item.id)}}" method = "post">
+        <input type = "text" name = "name" placeholder = "Name" value = {{item.name}} required = "True">
+        <input type = "number" name = "price" placeholder = "Price" step = "0.01" min = 0 value = {{item.price}} required = "True">
+        <input type = "text" name = "category" placeholder = "Category" value = {{item.category}} required = "True">
+        <input type = "text" name = "description" placeholder = "Description" value = {{item.description}}>
+        <button type = "submit">Edit Item</button>
+      </form>
+    </div>
+  </div>
+
+	<div>
+    Item #{{item.id}} <a href = {{url_for('delete_item', item_id = item.id)}}> Delete </a> <br>
+    {{item.name}} <br>
+    Price: ${{item.price}} <br>
+    Category: {{item.category}} <br>
+    Description: {{item.description}}
+    <br><br>
+
+    {% if item.warehouses|length == 0 %}
+      Not in any warehouses
+    {% else %}
+      {% for warehouse in item.warehouses %}
+        (#{{warehouse.id}}) {{warehouse.address}}, {{warehouse.state}} {{warehouse.zipcode}} <br>
+        {% for x in range(warehouse.stored|length) %}
+          {% if warehouse.stored[x].item_id == item.id %}
+            ({{warehouse.stored[x].stock}} available) <br><br>
+          {% endif %}
+        {% endfor %}
+      {% endfor %}
+    {% endif %}
+
+    <div>
+      <form action = "{{url_for('store_item', choice = 1, id = item.id)}}" method = "post">
+        <input type = "number" name = "targetID" placeholder = "Warehouse #" required = "True">
+        <input type = "number" name = "stock" placeholder = "stock" min = 0 required = "True">
+        <button type = "submit">Add warehouse</button>
+      </form>
+    </div>
+
+  </div>
+</body>

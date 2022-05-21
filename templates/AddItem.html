@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome Page</title>
+</head>
+<body>
+  <div>
+    <form action = "{{url_for('index')}}">
+      <button type = "submit">Back</button>
+    </form>
+    <div>
+      <form action = "{{url_for('add_item')}}" method = "post">
+        <input type = "text" name = "name" placeholder = "Name" required = "True">
+        <input type = "number" name = "price" placeholder = "Price" step = "0.01" min = 0 required = "True">
+        <input type = "text" name = "category" placeholder = "Category" required = "True">
+        <input type = "text" name = "description" placeholder = "Description">
+        <button type = "submit">Add Item</button>
+      </form>
+    </div>
+  </div>
+
+	<ul>
+  	{% for item in items %}
+      <a href = {{url_for('edit_item', item_id = item.id)}}>
+        <li> Item #{{item.id}} - {{item.name}} </li>
+      </a>
+  	{% endfor %}
+	</ul>
+</body>

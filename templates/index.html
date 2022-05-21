@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome Page</title>
+</head>
+<body>
+  <form action = "{{url_for('list_item')}}" method = "GET">
+  	<button type = "submit">Items</button>
+  </form>
+
+  <form action = "{{url_for('list_warehouse')}}" method = "GET">
+  	<button type = "submit">Warehouses</button>
+  </form>
+</body>
